@@ -8,10 +8,9 @@
 
 ### 修改 *[conf/root.cfg](conf/root.cfg)*
 
-如果待备份的元文件具有共同的根目录（如都处于 <code>D:</code> 盘中，则共同根目录为 <code>D:</code>）且备份的目标路径有根目录，可将 <code>[mode]</code> 下的 <code>
-ENABLED</code> 值设为 <code>True</code>。
+如果待备份的元文件具有共同的根目录（如都处于 `D:` 盘中，则共同根目录为 `D:`）且备份的目标路径有根目录，可将 `[mode]` 下的 `ENABLED` 值设为 `True`。
 
-<code>[code]</code> 下的 <code>SRC_ROOT</code> 值表示元文件的根目录，<code>DEST_ROOT</code> 值表示备份目标的根目录。
+`[code]` 下的 `SRC_ROOT` 值表示元文件的根目录，`DEST_ROOT` 值表示备份目标的根目录。
 
 ### 修改 *[conf/dirs.cfg](conf/dirs.cfg)*
 
@@ -19,12 +18,12 @@ ENABLED</code> 值设为 <code>True</code>。
 
     "待备份的目录的路径" = "目标的路径"
 
-如果 *[conf/root.cfg](conf/root.cfg)* <code>[mode]</code> 下的 <code>ENABLED</code> 值为 <code>True</code>，则 *[conf/dirs.cfg](conf/dirs.cfg)*
+如果 *[conf/root.cfg](conf/root.cfg)* `[mode]` 下的 `ENABLED` 值为 `True`，则 *[conf/dirs.cfg](conf/dirs.cfg)*
 中需要填入相对路径；否则填入绝对路径。
 
 ### 示例
 
-要想备份 <code>D:/origin</code> 下的 <code>dirA</code> 目录和 <code>dirB</code> 目录，到 <code>E:/backup</code> 中的对应目录。
+要想备份 `D:/origin` 下的 `dirA` 目录和 `dirB` 目录，到 `E:/backup` 中的对应目录。
 
 #### 使用相对路径的方法
 

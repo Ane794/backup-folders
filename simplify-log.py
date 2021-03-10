@@ -1,15 +1,17 @@
 ﻿"""简化日志文件."""
 
+import os
+import re
+
 _LOG_URL: str = 'log/backup.log'
 _TMP_URL: str = _LOG_URL + '.tmp'
 
-
-def _run():
+if __name__ == '__main__':
     with open(_LOG_URL, 'r', errors='ignore') as log:
         with open(_TMP_URL, 'w') as tmp:
             for line in log:
                 # 跳过复制进度.
-                if line.startswith('100%') or line.endswith('%  \n'):
+                if re.match('\\s*\\S+%\\s*', line):
                     continue
                 tmp.write(line)
 
@@ -18,9 +20,5 @@ def _run():
             for line in tmp:
                 log.write(line)
 
-    import os
     os.remove(_TMP_URL)
-
-
-_run()
-exit(0)
+    exit(0)
