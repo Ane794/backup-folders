@@ -4,6 +4,7 @@
     choice /c YN /m "已根据 \"root.cfg\"\"dirs.cfg\" 生成备份脚本. 确定执行备份吗 "
     if ERRORLEVEL 2 (
         echo 备份被取消.
+        del backup.bat
         pause
         exit
     )
