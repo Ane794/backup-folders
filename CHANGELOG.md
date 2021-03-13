@@ -1,9 +1,10 @@
 ﻿# 更新日志
 
-## 1.0 - 2021-03-10
+## 1.0 - 2021-03-13
 
 ### 修复
 
+* 修复 *[simplify-log.py](simplify-log.py)* 生成备份脚本不完整的问题。
 * 修复 *[start.bat](start.bat)* 在用户取消备份后未删除备份脚本的问题。
 * 修复 *[simplify-log.py](simplify-log.py)* 无法完全删除复制进度的问题。
 

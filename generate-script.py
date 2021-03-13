@@ -30,17 +30,22 @@ if __name__ == '__main__':
         conf = configparser.ConfigParser()
         conf.read(_DIRS_MAP_URL, _ENCODING)
         dirs = conf.items('dirs')
-        for item in dirs:
-            if enabled:
+
+        if enabled:
+            for item in dirs:
                 cmd = 'robocopy' \
                       + ' "%' + _SRC_ROOT_STR + '%\\' + item[0].replace('"', '') + '"' \
                       + ' "%' + _DEST_ROOT_STR + '%\\' + item[1].replace('"', '') + '"' \
                       + ' ' + _ROBOCOPY_ARGS
-            else:
+                bat_file.write(cmd + '\n')
+
+        else:
+            for item in dirs:
                 cmd = 'robocopy' \
                       + ' "' + item[0].replace('"', '') + '"' \
                       + ' "' + item[1].replace('"', '') + '"' \
                       + ' ' + _ROBOCOPY_ARGS
+                bat_file.write(cmd + '\n')
 
             bat_file.write(cmd + '\n')
             exit(0)
