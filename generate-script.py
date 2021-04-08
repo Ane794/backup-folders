@@ -31,6 +31,8 @@ if __name__ == '__main__':
         conf.read(_DIRS_MAP_URL, _ENCODING)
         dirs = conf.items('dirs')
 
+        bat_file.write('@echo on\n')
+
         if enabled:
             for item in dirs:
                 cmd = 'robocopy' \
