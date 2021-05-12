@@ -1,10 +1,10 @@
 """根据文件读取元目录 URL 和备份目录 URL 的映射关系并生成 .bat 脚本."""
 
-import configparser
+from ruamel.yaml import YAML
 
 _BAT_URL: str = 'backup.bat'
-_ROOT_INFO_URL: str = r'conf\root.cfg'
-_DIRS_MAP_URL: str = r'conf\dirs.cfg'
+
+_CONF_URL = r'conf\config.yml'
 
 _MODE_STR: str = 'MODE'
 _SRC_ROOT_STR: str = 'SRC_ROOT'
@@ -15,39 +15,15 @@ _ENCODING = 'UTF-8'
 _ROBOCOPY_ARGS: str = '/mir /unicode'
 
 if __name__ == '__main__':
-    with open(_BAT_URL, 'w', encoding=_ENCODING) as bat_file:
+    with open(_BAT_URL, 'w', encoding=_ENCODING) as bat_file, open(_CONF_URL, 'r', encoding=_ENCODING) as conf_file:
         bat_file.write('@echo off\n')
 
-        conf = configparser.ConfigParser()
-        conf.read(_ROOT_INFO_URL, _ENCODING)
-        enabled = conf.get('mode', 'ENABLED') == 'True'
-        if enabled:
-            src_root = conf.get('roots', _SRC_ROOT_STR)
-            dest_root = conf.get('roots', _DEST_ROOT_STR)
-            bat_file.write('set ' + _SRC_ROOT_STR + '=' + src_root + '\n')
-            bat_file.write('set ' + _DEST_ROOT_STR + '=' + dest_root + '\n')
-
-        conf = configparser.ConfigParser()
-        conf.read(_DIRS_MAP_URL, _ENCODING)
-        dirs = conf.items('dirs')
-
-        bat_file.write('@echo on\n')
-
-        if enabled:
-            for item in dirs:
-                cmd = 'robocopy' \
-                      + ' "%' + _SRC_ROOT_STR + '%\\' + item[0].replace('"', '') + '"' \
-                      + ' "%' + _DEST_ROOT_STR + '%\\' + item[1].replace('"', '') + '"' \
-                      + ' ' + _ROBOCOPY_ARGS
+        conf = YAML().load(conf_file)
+        for group in conf:
+            for item in group['dirs']:
+                cmd = ('robocopy "%s" "%s" %s' % (group['root']['src'] + '\\' + item['src'],
+                                                  group['root']['dest'] + '\\' + item['dest'],
+                                                  _ROBOCOPY_ARGS)).replace('\\\\', '\\').replace('"\\', '"')
                 bat_file.write(cmd + '\n')
 
-        else:
-            for item in dirs:
-                cmd = 'robocopy' \
-                      + ' "' + item[0].replace('"', '') + '"' \
-                      + ' "' + item[1].replace('"', '') + '"' \
-                      + ' ' + _ROBOCOPY_ARGS
-                bat_file.write(cmd + '\n')
-
-            bat_file.write(cmd + '\n')
-            exit(0)
+        exit(0)
