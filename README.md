@@ -5,7 +5,6 @@
 # 环境需求
 
 * Python 3
-    * ruamel.yaml
 
 # 使用
 
