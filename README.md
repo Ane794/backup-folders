@@ -2,6 +2,11 @@
 
 将文件夹批量备份，并自动覆盖旧备份中的旧版本文件，删除多余的文件。
 
+# 环境需求
+
+* Python 3
+    * ruamel.yaml
+
 # 使用
 
 ## 配置文件 *[conf/config.yml](conf/config.yml)*
