@@ -20,8 +20,6 @@ if __name__ == '__main__':
     try:
         with open(_CONF_URL, 'r', encoding=_CONF_ENCODING) as conf_file, open(_BAT_URL, 'w',
                                                                               encoding=_BAT_ENCODING) as bat_file:
-            bat_file.write('@echo off\n')
-
             conf = YAML().load(conf_file)
             conf_file.close()
 
