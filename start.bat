@@ -14,19 +14,28 @@ if %ERRORLEVEL% EQU 0 ( :: generate-script.py 正常执行完成.
         echo 不存在合法的备份项! 请检查 conf\config.yml 文件的配置.
         goto end
     )
+
     choice /c YN /m "已生成备份脚本. 确定执行备份吗 "
     if ERRORLEVEL 2 (
         echo 备份被取消.
         goto end
     )
+
     echo 备份中...
+
     if not exist %LOG_DIR% (
         mkdir %LOG_DIR%
     )else if exist %LOG% (
         del %LOG%
     )
+
     %BACKUP_SCRIPT%
-    echo 备份完成.
+    if %ERRORLEVEL% EQU -1 (
+        echo 备份被用户中断.
+    ) else (
+        echo 备份完成.
+    )
+
     if exist %LOG% (
         echo 简化日志...
         python %SIMPLIFY_LOG_SCRIPT%
