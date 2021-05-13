@@ -39,6 +39,7 @@ if __name__ == '__main__':
                                                                                                                 '"')
                     bat_file.write(cmd + '\n')
 
+            bat_file.write('exit /b 0\n')
             bat_file.close()
 
             if valid_count == 0:

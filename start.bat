@@ -57,9 +57,6 @@ goto:eof
   if %ERRORLEVEL% EQU -1 (
     echo 备份被用户中断.
     exit /b -1
-  ) else if %ERRORLEVEL% NEQ 0 (
-    echo 备份失败!
-    exit /b 1
   ) else (
     echo 备份完成.
   )
