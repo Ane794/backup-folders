@@ -2,20 +2,19 @@
 
 from ruamel.yaml import YAML
 
-_BAT_URL: str = 'backup.bat'
+_BAT_URL = 'backup.bat'
+_BAT_ENCODING = 'GBK'
 
 _CONF_URL = r'conf\config.yml'
+_CONF_ENCODING = 'UTF-16'
 
-_MODE_STR: str = 'MODE'
-_SRC_ROOT_STR: str = 'SRC_ROOT'
-_DEST_ROOT_STR: str = 'DEST_ROOT'
+_LOG_URL = r'log\backup.log'
 
-_ENCODING = 'UTF-8'
-
-_ROBOCOPY_ARGS: str = '/mir /unicode'
+_ROBOCOPY_ARGS: str = '/mir /unicode /tee /unilog+:"%s"' % _LOG_URL
 
 if __name__ == '__main__':
-    with open(_BAT_URL, 'w', encoding=_ENCODING) as bat_file, open(_CONF_URL, 'r', encoding=_ENCODING) as conf_file:
+    with open(_BAT_URL, 'w', encoding=_BAT_ENCODING) as bat_file, open(_CONF_URL, 'r',
+                                                                       encoding=_CONF_ENCODING) as conf_file:
         bat_file.write('@echo off\n')
 
         conf = YAML().load(conf_file)
