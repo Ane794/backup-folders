@@ -26,6 +26,14 @@ if %ERRORLEVEL% NEQ 0 (
 
 call:simplifyLog
 
+:end
+if exist %BACKUP_SCRIPT% (
+  del %BACKUP_SCRIPT%
+)
+pause
+exit /b
+
+
 :generateScript
   echo 根据 "config.yml" 生成备份脚本...
   echo 将备份以下目录:
@@ -68,9 +76,3 @@ goto:eof
     python %SIMPLIFY_LOG_SCRIPT%
   )
 goto:eof
-
-:end
-if exist %BACKUP_SCRIPT% (
-  del %BACKUP_SCRIPT%
-)
-pause
